@@ -45,6 +45,12 @@ public class UnitSpawner : Targetable
         NewUnit.CooldownMultipier *= UnitAttackSpeedMultiplier.CurrentValue;
         NewUnit.DamageMultiplier *= UnitDamageMultiplier.CurrentValue;
 
+        int Bounty = NewUnit.GoldBounty;
+        Bounty += (int)Mathf.Lerp(1,10 , UnitDamageMultiplier.CurrentValue / UnitDamageMultiplier.MaxValue);
+        Bounty += (int)Mathf.Lerp(1,10 , UnitAttackSpeedMultiplier.CurrentValue / UnitAttackSpeedMultiplier.MaxValue);
+
+        NewUnit.GoldBounty = Bounty;
+
         //NewUnit.SetDestination(GameManager.Instance.EnemyBase.transform.position);
         UnitManager.Instance.RegisterUnit(NewUnit);
     }
@@ -61,7 +67,7 @@ public class UnitSpawner : Targetable
         }
     }
 
-    public override void TakeDamage(float Damage, AttackCallbackDel Callback = null)
+    public override void TakeDamage(DamagePacket InDamagePacket, AttackCallbackDel Callback = null)
     {
         Debug.Log("Building damaged");
     }

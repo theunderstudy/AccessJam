@@ -10,6 +10,25 @@ public enum DamageTypes
     ranged,
     magic
 }
+
+
+public enum ArmourTypes
+{
+    normal,
+    melee,
+    ranged,
+    magic
+}
+public struct DamagePacket
+{
+    public DamagePacket(float InDamage, DamageTypes InDamageType)
+    {
+        Damage = InDamage;
+        DamageType = InDamageType;
+    }
+    public float Damage;
+    public DamageTypes DamageType;
+}
 public abstract class Ability : MonoBehaviour
 {
     public DamageTypes DamageType;
@@ -19,6 +38,7 @@ public abstract class Ability : MonoBehaviour
     protected float CurrentTime = 0;
     protected bool bReady=true;
 
+   
     // Update is called once per frame  
 
     public virtual bool CanUse(Unit Owner)

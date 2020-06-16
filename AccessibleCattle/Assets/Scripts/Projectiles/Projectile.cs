@@ -7,16 +7,16 @@ public class Projectile : MonoBehaviour
     public float ProjectileAngle = 45;
     protected Rigidbody Rigidbody;
     public Unit Owner;
-    private float Damage;
     private float TimeAlive = 0;
 
     public MeshRenderer[] PrimaryMeshRenderers;
     public MeshRenderer[] SecondaryMeshRenderers;
 
-    public virtual void Init(Unit InOwner, float InDamage)
+    private DamagePacket DamagePacket;
+    public virtual void Init(Unit InOwner, DamagePacket InDamagePacket)
     {
         Owner = InOwner;
-        Damage = InDamage;
+        DamagePacket = InDamagePacket;
         ColorManager.Instance.SetProjectileColors(this);
     }
     public virtual void Launch(Vector3 LaunchPosition, Vector3 Destination)
@@ -55,7 +55,7 @@ public class Projectile : MonoBehaviour
         {
             if (TargetHit.Allegiance != Owner.Allegiance)
             {
-                TargetHit.TakeDamage(Damage, 
+                TargetHit.TakeDamage( DamagePacket, 
                     (bool bKilled)=>
                     {
                         if (bKilled)

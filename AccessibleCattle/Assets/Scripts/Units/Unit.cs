@@ -41,6 +41,8 @@ public class Unit : Targetable
     public float CooldownMultipier = 1;
     public float DamageMultiplier = 1;
 
+    public int GoldBounty=1;
+
 
     public MeshRenderer[] PrimaryMeshRenderers;
     public MeshRenderer[] SecondaryMeshRenderers;
@@ -152,6 +154,15 @@ public class Unit : Targetable
     protected void Die()
     {
         UnitManager.Instance.RemoveUnit(this);
+        if (Allegiance == UnitAllegiance.enemy)
+        {
+            GameManager.Instance.ChangeMoney(transform.position, UnitAllegiance.friendly, GoldBounty);
+        }
+        if (Allegiance == UnitAllegiance.friendly)
+        {
+            GameManager.Instance.ChangeMoney(UnitAllegiance.enemy, GoldBounty);
+
+        }
         Destroy(gameObject);
     }
 
@@ -160,13 +171,22 @@ public class Unit : Targetable
         
     }
 
-    public override void TakeDamage(float Damage, AttackCallbackDel Callback)
+    public override void TakeDamage(DamagePacket InDamagePacket, AttackCallbackDel Callback)
     {
-        HP -= Damage;
+        // Apply armour and deal damage
+        ApplyDefenceModifiers(ref InDamagePacket);
+        HP -= InDamagePacket.Damage;
+
         transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, HP / MaxHP);
+
+
         if (HP < 0)
         {
-            Callback(true);
+            if (Callback!=null)
+            {
+                Callback(true);
+            }
+
             Die();
             return;
         }

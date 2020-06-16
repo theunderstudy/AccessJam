@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Allegiance: 0
+  ArmourType: 2
+  DamageReduction: 0.5
   Agent: {fileID: 3974199691670904463}
   CurrentState: 0
   Abilities: []
@@ -137,6 +139,8 @@ MonoBehaviour:
     type: 3}
   MaxHP: 10
   AgroRange: 5
+  CooldownMultipier: 1
+  DamageMultiplier: 1
   PrimaryMeshRenderers:
   - {fileID: 6242316867180139304}
   SecondaryMeshRenderers: []

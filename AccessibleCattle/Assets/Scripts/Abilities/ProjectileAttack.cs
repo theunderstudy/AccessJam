@@ -8,7 +8,8 @@ public class ProjectileAttack : Ability
     public override void Use(Unit Owner, Targetable Target)
     {
         Projectile NewProjectile = Instantiate(ProjectilePrefab);
-        NewProjectile.Init(Owner , Damage * Owner.DamageMultiplier);
+        DamagePacket NewPacket = new DamagePacket(Damage * Owner.DamageMultiplier , DamageType);
+        NewProjectile.Init(Owner , NewPacket);
         NewProjectile.Launch(Owner.transform.position , Target.transform.position);
         bReady = false;
     }

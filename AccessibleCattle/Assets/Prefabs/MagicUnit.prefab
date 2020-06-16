@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Allegiance: 0
+  ArmourType: 3
+  DamageReduction: 0.5
   Agent: {fileID: 3974199691670904463}
   CurrentState: 0
   Abilities: []

@@ -6,7 +6,9 @@ public class MeleeAttack : Ability
 {
     public override void Use(Unit Owner, Targetable Target)
     {
-        Target.TakeDamage(Damage * Owner.DamageMultiplier, (bool bKilled) =>
+        DamagePacket MeleeDamagePacked = new DamagePacket(Damage * Owner.DamageMultiplier , DamageType);
+
+        Target.TakeDamage( MeleeDamagePacked, (bool bKilled) =>
         {
             if (bKilled)
             {
